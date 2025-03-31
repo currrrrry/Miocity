@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MioCity - Cyber Noir</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Orbitron', sans-serif;
+      color: #0ff;
+      overflow: hidden;
+    }
+    body {
+      position: relative;
+      background: black;
+    }
+    .bg-slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .bg-slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+    .bg-slideshow img.active {
+      opacity: 1;
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+    .logo {
+      width: 200px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 10px #0ff);
+      animation: spinIn 1s ease-out;
+    }
+    h1 {
+      font-size: 60px;
+      text-shadow: 0 0 20px #0ff;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 20px;
+      color: #aaa;
+      margin-bottom: 30px;
+    }
+    .menu {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    .menu a {
+      color: #0ff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    .menu a:hover {
+      background: #0ff;
+      color: #000;
+      box-shadow: 0 0 15px #0ff;
+    }
+    .button {
+      padding: 1em 2em;
+      background: #0ff;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      text-shadow: 0 0 10px #000;
+      box-shadow: 0 0 15px #0ff;
+      transition: transform 0.3s ease;
+      text-decoration: none;
+    }
+    .button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #0ff;
+    }
+    .button.hidden {
+      display: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spinIn {
+      0% {
+        transform: rotate(-90deg) scale(0);
+        opacity: 0;
+      }
+      100% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-slideshow">
+    <img src="haikei1.png" class="active" />
+    <img src="haikei2.png" />
+    <img src="haikei3.png" />
+    <img src="haikei4.png" />
+  </div>
+
+  <div class="container">
+    <img src="miocitylogo.png" alt="MioCity Logo" class="logo" />
+    <h1>MioCity</h1>
+    <p>Welcome to the digital underworld...</p>
+    <button class="button" id="enterBtn" onclick="showMenu()">ENTER</button>
+    <div class="menu" id="menu">
+      <a href="about.html">About</a>
+      <a href="#">System</a>
+      <a href="#">Map</a>
+      <a href="#">Districts</a>
+      <a href="#">Characters</a>
+      <a href="#">Jobs</a>
+      <a href="#">Crime</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.bg-slideshow img');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 5000);
+
+    function showMenu() {
+      document.getElementById('menu').style.display = 'flex';
+      document.getElementById('enterBtn').classList.add('hidden');
+    }
+
+    // 自動メニュー表示処理
+    if (window.location.hash === '#menu') {
+      window.onload = () => {
+        showMenu();
+      }
+    }
+  </script>
+</body>
+</html>
